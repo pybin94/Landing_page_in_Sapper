@@ -1,19 +1,18 @@
 <script>
 	import {onMount} from 'svelte'
-
+	import banners from "./banners.js"
 	onMount(() => {
 		let card = document.querySelectorAll('.card')
 		console.log(card.length)
 
 		setTimeout(() => { 
-			for(var i =0 ; i < card.length; i++) {
+			for(let i = 0 ; i < card.length; i++) {
 				card[i].classList.remove("preShow")
 			}
 		},2000);
 	})
 
-
-
+	console.log(banners[0].src)
 </script>
 
 <style>
@@ -48,8 +47,6 @@
 		width: 400px;
 		height: 100px;
 		margin: 20px;
-		border: 1px solid #fff;
-		background-color: #fff;
 		cursor: pointer;
 		overflow: hidden
 	}
@@ -59,6 +56,12 @@
 		left: 0;
 		transition: all 0.3s;
 	}
+
+	.card-top img {
+		width: 400px;
+    	height: 100px;
+	}
+
 	.card:hover .card-top{
 		opacity: 0;
 	}
@@ -68,21 +71,25 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background-color: #00ffaa;
+		background: linear-gradient(to bottom, #28356B, #2f3d72);
 		transition: all 0.3s;
 		opacity: 0;
 	}
+
 	.card:hover .card-bottom {
 		margin-top: 0;
 		opacity: 1;
 	}
+
 	.card-bottom p {
 		margin-top: -5px;
 		transition: all 0.3s;
 	}
+
 	.card:hover .card-bottom p {
 		margin-top: 0;
 	}
+	
 	.card:nth-child(2n-1) {
 		margin-top: -20px;
 	}
@@ -110,7 +117,6 @@
 		animation: preShowMove 1.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 	}
 
-
 	@keyframes preShowMove {
 		to {
 			transform: scaleX(0);
@@ -133,7 +139,6 @@
 		}
 	}
 
-
 	@media (min-width: 480px) {
 		h1 {
 			font-size: 4em;
@@ -149,60 +154,18 @@
 
 <figure>
 	<ul>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
-		<li class="card preShow">
-			<div class="card-top"><img src="" alt="dlalwl"></div>
-			<div class="card-bottom">
-				<p>DeepKnow</p>
-				<p>
-				Interactive safety autoimmune system based on full link
-				</p>
-			</div>
-		</li>
+		{#each banners as banner}
+			<li class="card preShow shadow">
+				<div class="card-top">
+					<img src="{banner.src}" alt="{banner.alt}">
+				</div>
+				<div class="card-bottom">
+					<h5>{banner.title}</h5>
+					<p>{banner.content}</p>
+				</div>
+			</li>
+		{/each}
+		
 	</ul>
 	<figcaption>Have fun with Sapper!</figcaption>
 </figure>

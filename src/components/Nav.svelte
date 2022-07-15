@@ -33,7 +33,7 @@
 
 	.nav-active {
 		position: fixed;
-		background-color: rgba(255, 255, 255, 0.85);
+		background-color: rgba(255, 255, 255, 0.9);
 		box-shadow: 0px 7px 15px -6px #cdcdcd;
 		color: #333;
 		z-index: 100;
