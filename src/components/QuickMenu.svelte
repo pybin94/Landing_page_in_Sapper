@@ -1,23 +1,29 @@
 <script>
-    import  Fa  from  'svelte-fa' 
-    import  {  }  from  '@fortawesome/free-solid-svg-icons' 
-    import  {  faTelegram  }  from  '@fortawesome/free-brands-svg-icons' ; 
+    import Fa from 'svelte-fa';
+    import { faCircleArrowUp } from '@fortawesome/free-solid-svg-icons';
+    import { faTelegram } from '@fortawesome/free-brands-svg-icons';
 </script>
 
 <style>
-    .telegram-button {
+    .quick-menu {
         position: fixed;
-        bottom: 10%;
-        right: 10%;
         border-radius: 100%;
         padding: 0;
         border: none;
+        z-index: 100;
+        cursor: pointer;
+    }
+    .telegram-button {
+        bottom: 14%;
+        right: 10%;
+    }
+    .top-button {
+        bottom: 5%;
+        right: 10%;
     }
 
-    .telegram-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 60px;
+    .button-icon {
+        font-size: 55px;
         border-radius: 100%;
         line-height: 0;
         animation: animatedgradient 3s alternate infinite;
@@ -29,8 +35,8 @@
         top: 0;
         left: 0;
         margin: 0 auto;
-        width: 58px;
-        height: 60px;
+        width: 54px;
+        height: 56px;
         border:solid #dedef7;
         animation: spin 1s ease infinite;
         border-radius: 50%;
@@ -55,11 +61,17 @@
 	}
 </style>
 
-<button class="telegram-button">
+<button class="quick-menu telegram-button">
     <a href="/">
         <div class="spinner"></div>
-        <span class="telegram-icon">
+        <span class="button-icon">
             <Fa icon={faTelegram} />
         </span>
     </a>
+</button>
+<button class="quick-menu top-button" on:click={() => {window.scrollTo(0,0)}}>
+    <div class="spinner"></div>
+    <span class="button-icon">
+        <Fa icon={faCircleArrowUp} />
+    </span>
 </button>

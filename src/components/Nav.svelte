@@ -1,34 +1,33 @@
 <script>
 	export let segment;
-	let scrollHeight;
+	let scrollY;
 	let isNavActive = false
 	const handleNavbar = () => {
-		if(scrollHeight > 100) {
+		if(scrollY > 100) {
 			isNavActive = true
-		} else if (scrollHeight < 10){
+		} else if (scrollY < 10){
 			isNavActive = false;
 		}
 	}
 
 	$: {
-		scrollHeight
+		scrollY
 		handleNavbar()
 	}
 </script>
 
 <style>
 	nav {
-		width: 1000px;
-		margin: 0 auto;
 		position: fixed;
 		border-radius: 16px;
+		margin-top: 35px;
 		top: 0;
 		left: 0;
 		right: 0;
 		transform: translate(0%, 0%);
 		font-weight: 300;
-		padding: 0 1em;
 		transition: all 0.5s;
+		z-index: 100;
 	}
 
 	.nav-active {
@@ -42,11 +41,14 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		padding: 12px 20px;
 		transform: translate(0%, 30%);
 		transition: all 0.5s;
 	}
 
 	ul {
+		display: flex;
+		align-items: center;
 		margin: 0;
 		padding: 0;
 	}
@@ -59,10 +61,12 @@
 	}
 
 	li {
-		display: block;
-		float: left;
+		margin-right: 10px;
+		font-size: 14px;
 	}
-
+	li:first-child {
+		margin-right: auto;
+	}
 
 	[aria-current] {
 		position: relative;
@@ -81,8 +85,17 @@
 
 	a {
 		text-decoration: none;
-		padding: 1em 0.5em;
 		display: block;
+	}
+
+	.nav-alert {
+		background-color: #666666;
+		border-radius: 5px;
+		margin: 70px auto 20px;
+		padding: 10px 0;
+		text-align: center;
+		font-size: 14px;
+		z-index: 100;
 	}
 
 	@keyframes animatedgradient {
@@ -98,16 +111,14 @@
 	}
 
 </style>
-<nav id="navigationBar" class:nav-active={isNavActive}>
+<nav id="navigationBar" class:nav-active={isNavActive} class="container">
 	<ul>
-		<li><img src="" alt=""></li>
-		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
-		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">about</a></li>
-
-		<!-- for the blog link, we're using rel=prefetch so that Sapper prefetches
-		     the blog data when we hover over the link or tap it on a touchscreen -->
-		<li><a rel=prefetch aria-current="{segment === 'blog' ? 'page' : undefined}" href="blog">blog</a></li>
+		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">Mukti Filter</a></li>
+		<li><a aria-current="{segment === 'about' ? 'page' : undefined}" href="about">안전사이트</a></li>
+		<li><a rel=prefetch aria-current="{segment === 'info' ? 'page' : undefined}" href="info">먹튀필터 소개</a></li>
 	</ul>
 </nav>
 
-<svelte:window bind:scrollY={scrollHeight} />
+<div class="nav-alert container">선착순 혜택 신규 배너 모집 이벤트!</div>
+
+<svelte:window bind:scrollY={scrollY} />

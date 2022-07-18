@@ -1,0 +1,111 @@
+<style>
+  body,
+  html {
+    height: 100%;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Roboto", sans-serif;
+    color: white;
+    background-color: #f0f0ee;
+    margin: 0px;
+    padding: 0;
+    scroll-behavior: smooth;
+  }
+
+
+</style>
+
+<nav id="side-navigation" class="side-navigation">
+  <ul>
+    <li onclick="goto(0)">TITLE A</li>
+    <li onclick="goto(1)">TITLE B</li>
+    <li onclick="goto(2)">TITLE C</li>
+    <li onclick="goto(3)">TITLE D</li>
+    <li onclick="goto(4)">TITLE E</li>
+    <li onclick="goto(5)">TITLE F</li>
+  </ul>
+</nav>
+
+<div id="panelWrapper" class="panel-wrapper">
+  <section id="panel" class="panel one">
+    <article class="article">
+      <h1>TITLE A</h1>
+    </article>
+  </section>
+  <section id="panel" class="panel two">
+    <article class="article">
+      <h1>TITLE B</h1>
+    </article>
+  </section>
+  <section id="panel" class="panel three">
+    <article class="article">
+      <h1>TITLE C</h1>
+    </article>
+  </section>
+  <section id="panel" class="panel four">
+    <article class="article">
+      <h1>TITLE D</h1>
+    </article>
+  </section>
+  <section id="panel" class="panel five">
+    <article class="article">
+      <h1>TITLE E</h1>
+    </article>
+  </section>
+  <section id="panel" class="panel six">
+    <article class="article">
+      <h1>TITLE F</h1>
+    </article>
+  </section>
+</div>
+
+
+<script>
+  let sectionHeight;
+  let sections = document.querySelectorAll("#panel")
+  let bodyHeight = document.body.scrollHeight;
+
+  window.addEventListener("scroll", ()=>{
+    let scrollNow = window.scrollY;
+    let scrollPercentage = Math.floor(scrollNow/bodyHeight*100)
+
+    if(scrollNow <= bodyHeight ){
+      sections[2].style.left = "-100%"
+      sections[1].style.left = `${100-scrollPercentage}%`
+    }
+    if(scrollNow >= bodyHeight) {
+      sections[1].style.left = "0%"
+    }
+    if(bodyHeight < scrollNow && scrollNow <= bodyHeight*2 ){
+      sections[3].style.left = "-100%"
+      sections[2].style.left = `${100-Math.floor((scrollNow-bodyHeight*1)/bodyHeight*100)}%`
+    }
+    if(scrollNow >= bodyHeight*2 ) {
+      sections[2].style.left = "0%"
+    }
+    if(bodyHeight*2 < scrollNow && scrollNow <= bodyHeight*3 ){
+      sections[4].style.left = "-100%"
+      sections[3].style.left = `${100-Math.floor((scrollNow-bodyHeight*2)/bodyHeight*100)}%`
+    }
+    if(scrollNow >= bodyHeight*3 ) {
+      sections[3].style.left = "0%"
+    }
+    if(bodyHeight*3 < scrollNow && scrollNow <= bodyHeight*4 ){
+      sections[5].style.left = "-100%"
+      sections[4].style.left = `${100-Math.floor((scrollNow-bodyHeight*3)/bodyHeight*100)}%`
+    }
+    if(scrollNow >= bodyHeight*4 ) {
+      sections[4].style.left = "0%"
+    }
+    if(bodyHeight*4 < scrollNow && scrollNow <= bodyHeight*5 ){
+      sections[5].style.left = `${100-Math.floor((scrollNow-bodyHeight*4)/bodyHeight*100)}%`
+    }
+  })
+  
+  const navList = document.querySelectorAll("#side-navigation ul li")
+  const goto = (index) => {
+    window.scrollTo(0, bodyHeight*index)
+  }
+
+  document.querySelector("body").style.height = bodyHeight*sections.length
+</script>
