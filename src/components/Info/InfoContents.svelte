@@ -1,19 +1,14 @@
 <script>
   import {onMount} from 'svelte';
 
-  let bodyHeight
-  
-  console.log(bodyHeight)
-  let sections
-  onMount(() => {
-    sections = document.querySelectorAll("#panel")
-    document.querySelector("body").style.height = bodyHeight*sections.length
-	})
-    
-    let scrollY;
-    
+  let bodyHeight;
+  let scrollY;
 
-    const scrollEvent = () => {
+ 
+const handler = () => {
+  bodyHeight = bodyHeight.scrollHeight;
+    let sections = document.querySelectorAll("#panel")
+    document.querySelector("body").style.height = bodyHeight*panel.length+"px"
       let scrollPercentage = Math.floor(scrollY/bodyHeight*100)
 
       if(scrollY <= bodyHeight ){
@@ -47,32 +42,34 @@
       if(bodyHeight*4 < scrollY && scrollY <= bodyHeight*5 ){
         sections[5].style.left = `${100-Math.floor((scrollY-bodyHeight*4)/bodyHeight*100)}%`
       }
-    }
+}
+
+  onMount(() => {
     
-    // const goto = (index) => {
-    //   window.scrollTo(0, bodyHeight*index)
-    // }
+    handler()
 
-
+  }) 
 
   $: {
 		scrollY
-    bodyHeight
-		scrollEvent()
+    
+    handler()
   }
-
- 
+  
 </script>
 
+<svelte:window bind:scrollY={scrollY} />
+<svelte:body />
+
 <style>
-    h1 {
-        font-size: 32px;
-        color: white;
-        position: relative;
-        display: block;
-        top: 40%;
-        text-align: center;
-        text-transform: uppercase;
+  h1 {
+    font-size: 32px;
+    color: white;
+    position: relative;
+    display: block;
+    top: 40%;
+    text-align: center;
+    text-transform: uppercase;
   }
 
   .panel-wrapper {
@@ -139,7 +136,7 @@
     </ul>
 </nav>
   
-<div id="panelWrapper" class="panel-wrapper">
+<div id="panelWrapper" class="panel-wrapper" bind:this="{bodyHeight}">
     <section id="panel" class="panel one">
       <article class="article">
         <h1>TITLE A</h1>
@@ -172,5 +169,3 @@
     </section>
 </div>  
 
-<svelte:window bind:scrollY={scrollY} />
-<svelte:body bind:scrollHeight={bodyHeight} />
