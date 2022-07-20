@@ -1,59 +1,48 @@
 <script>
   import {onMount} from 'svelte';
+  import {infoContents} from "./infoContents.json";
 
   let bodyHeight;
   let scrollY;
-
- 
-const handler = () => {
-  bodyHeight = bodyHeight.scrollHeight;
-    let sections = document.querySelectorAll("#panel")
-    document.querySelector("body").style.height = bodyHeight*panel.length+"px"
-      let scrollPercentage = Math.floor(scrollY/bodyHeight*100)
-
-      if(scrollY <= bodyHeight ){
-        sections[2].style.left = "-100%"
-        sections[1].style.left = `${100-scrollPercentage}%`
-      }
-      if(scrollY >= bodyHeight) {
-        sections[1].style.left = "0%"
-      }
-      if(bodyHeight < scrollY && scrollY <= bodyHeight*2 ){
-        sections[3].style.left = "-100%"
-        sections[2].style.left = `${100-Math.floor((scrollY-bodyHeight*1)/bodyHeight*100)}%`
-      }
-      if(scrollY >= bodyHeight*2 ) {
-        sections[2].style.left = "0%"
-      }
-      if(bodyHeight*2 < scrollY && scrollY <= bodyHeight*3 ){
-        sections[4].style.left = "-100%"
-        sections[3].style.left = `${100-Math.floor((scrollY-bodyHeight*2)/bodyHeight*100)}%`
-      }
-      if(scrollY >= bodyHeight*3 ) {
-        sections[3].style.left = "0%"
-      }
-      if(bodyHeight*3 < scrollY && scrollY <= bodyHeight*4 ){
-        sections[5].style.left = "-100%"
-        sections[4].style.left = `${100-Math.floor((scrollY-bodyHeight*3)/bodyHeight*100)}%`
-      }
-      if(scrollY >= bodyHeight*4 ) {
-        sections[4].style.left = "0%"
-      }
-      if(bodyHeight*4 < scrollY && scrollY <= bodyHeight*5 ){
-        sections[5].style.left = `${100-Math.floor((scrollY-bodyHeight*4)/bodyHeight*100)}%`
-      }
-}
+  let sections = "";
 
   onMount(() => {
-    
-    handler()
-
-  }) 
+    sections = document.querySelectorAll("#panel")
+    bodyHeight = bodyHeight.scrollHeight;
+    document.querySelector("#panelWrapper").style.height = bodyHeight*panel.length+"px"
+  })
+  
+  const handelScroll = () => {
+    const scroll = (index, ifNull) => {
+      if (ifNull == "unset") {
+        if(bodyHeight*index < scrollY && scrollY <= bodyHeight*(index+1) ){
+          sections[index+1].style.left = `${100-Math.floor((scrollY-bodyHeight*index)/bodyHeight*100)}%`
+          if(scrollY > bodyHeight*(index+1)-100) {
+            sections[index+1].style.left = "0%"
+          }
+        }
+      } else {
+        if(bodyHeight*index < scrollY && scrollY <= bodyHeight*(index+1) ){
+          sections[index+2].style.left = "-100%"
+          sections[index+1].style.left = `${100-Math.floor((scrollY-bodyHeight*index)/bodyHeight*100)}%`
+        }
+        if(scrollY >= bodyHeight*(index+1) ) {
+          sections[index+1].style.left = "0%"
+        }
+      }
+    }
+    for(let i = 0; i < sections.length-1; i++) {
+      if(i == sections.length-2) {
+        scroll(i, "unset")
+      } else {
+        scroll(i)
+      }
+    }
+  }
 
   $: {
 		scrollY
-    
-    handler()
+    handelScroll()
   }
   
 </script>
@@ -64,12 +53,6 @@ const handler = () => {
 <style>
   h1 {
     font-size: 32px;
-    color: white;
-    position: relative;
-    display: block;
-    top: 40%;
-    text-align: center;
-    text-transform: uppercase;
   }
 
   .panel-wrapper {
@@ -106,66 +89,51 @@ const handler = () => {
     height: 100vh;
   }
 
-  .one {
+  .article div {
+    color: white;
+    position: relative;
+    display: block;
+    top: 40%;
+    text-align: center;
+  }
+
+  .background0 {
     background: linear-gradient(to left, #243b55, #141E30);
   }
-  .two {
-    background-color: #94c356;
+  .background1 {
+    background: linear-gradient(to left, #2b4766, #1e2a41);
   }
-  .three {
-    background-color: #e3aa59;
+  .background2 {
+    background: linear-gradient(to left, #2f4d70, #1f293f);
   }
-  .four {
-    background-color: #777;
+  .background3 {
+    background: linear-gradient(to left, #34567c, #26334e);
   }
-  .five {
-    background-color: #a63ba0;
+  .background4 {
+    background: linear-gradient(to left, #395e88, #2c3a5a);
   }
-  .six {
-    background-color: #cf5b21;
+  .background5 {
+    background: linear-gradient(to left, #3f6796, #344469);
   }
 </style>
 <nav id="side-navigation" class="side-navigation">
     <ul>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*0)}}>TITLE A</li>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*1)}}>TITLE B</li>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*2)}}>TITLE C</li>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*3)}}>TITLE D</li>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*4)}}>TITLE E</li>
-      <li on:click={()=>{window.scrollTo(0, bodyHeight*5)}}>TITLE F</li>
+      {#each infoContents as infoContent}
+        <li on:click={()=>{window.scrollTo(0, bodyHeight*infoContent.index)}}>{infoContent.title}</li>
+      {/each}
     </ul>
 </nav>
   
 <div id="panelWrapper" class="panel-wrapper" bind:this="{bodyHeight}">
-    <section id="panel" class="panel one">
-      <article class="article">
-        <h1>TITLE A</h1>
-      </article>
-    </section>
-    <section id="panel" class="panel two">
-      <article class="article">
-        <h1>TITLE B</h1>
-      </article>
-    </section>
-    <section id="panel" class="panel three">
-      <article class="article">
-        <h1>TITLE C</h1>
-      </article>
-    </section>
-    <section id="panel" class="panel four">
-      <article class="article">
-        <h1>TITLE D</h1>
-      </article>
-    </section>
-    <section id="panel" class="panel five">
-      <article class="article">
-        <h1>TITLE E</h1>
-      </article>
-    </section>
-    <section id="panel" class="panel six">
-      <article class="article">
-        <h1>TITLE F</h1>
-      </article>
-    </section>
+  {#each infoContents as infoContent}
+  <section id="panel" class="panel">
+    <article class="article background{infoContent.index}">
+      <div>
+        <h1>{infoContent.title}</h1>
+        <p>a</p>
+      </div>
+    </article>
+  </section>
+  {/each}
 </div>  
 
