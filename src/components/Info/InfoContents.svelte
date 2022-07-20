@@ -130,7 +130,7 @@
     <article class="article background{infoContent.index}">
       <div>
         <h1>{infoContent.title}</h1>
-        <p>a</p>
+	<p>{@html infoContent.contents}</p>
       </div>
     </article>
   </section>
