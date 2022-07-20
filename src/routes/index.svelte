@@ -27,21 +27,20 @@
 
 
 
-	/* @media (min-width: 480px) {
+	@media (max-width: 480px) {
 		h1 {
-			font-size: 4em;
+			font-size: 2em;
 		}
-	} */
+	}
 </style>
 
 <svelte:head>
-	<title>Sapper project template</title>
+	<title>먹튀필터</title>
 </svelte:head>
 
 <section>
 	<h1>먹튀검증 토토사이트</h1>
-	<p>언더독은 <span class="underline">고도화 기술력</span>을 바탕으로 여러분에게 <span class="underline">차별화</span>된 토토사이트를 제공해 드립니다.</p>
-	<h2>Premium!</h2>
+	<p><a href="/">먹튀필터</a>는 <span class="underline">고도화 기술력</span>을 바탕으로 여러분에게 <span class="underline">차별화</span>된 토토사이트를 제공해 드립니다.</p>
 	<Banner />
 </section>
 

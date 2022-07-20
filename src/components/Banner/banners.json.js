@@ -78,5 +78,3 @@ export const banners = [
 		content: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusamus quo error vero facere harum nemo praesentium velit autem eos atque impedit inventore, voluptatum voluptate, minima dolores doloremque, eveniet alias? Voluptatibus!",
 	},
 ];
-
-// export default banners;

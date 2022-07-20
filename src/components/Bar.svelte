@@ -1,6 +1,6 @@
 <script>
     import Fa from 'svelte-fa';
-    import { faCompassDrafting, faFishFins } from '@fortawesome/free-solid-svg-icons';
+    import { faFishFins } from '@fortawesome/free-solid-svg-icons';
     import {  } from '@fortawesome/free-brands-svg-icons';
 </script>
 

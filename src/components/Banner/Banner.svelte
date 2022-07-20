@@ -14,7 +14,7 @@
 </script>
 
 <style>
-    	ul {
+	ul {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -120,8 +120,37 @@
 			transform: translateX(0);
 		}
 	}
-</style>
 
+	@media (max-width: 1024px) {
+		.card {
+			width: 300px;
+			height: 75px;
+		}
+	}
+
+	@media (max-width: 740px) {
+		.card {
+			width: 250px;
+			height: 50px;
+			margin: 15px;
+		}
+	}
+	@media (max-width: 640px) {
+		.card {
+			width: 180px;
+			height: 45px;
+			
+		}
+	}
+
+	@media (max-width: 480px) {
+		.card {
+			width: 145px;
+    		height: 36px;
+			margin: 10px;
+		}
+	}
+</style>
 <ul class="premiums">
     {#each premiums as premium}
     <li class="card premium preShow shadow">
@@ -137,7 +166,6 @@
     </li>
     {/each}
 </ul>
-<h2>New Banners!</h2>
 <ul class="newBanners">
     {#each newBanners as newBanner}
     <li class="card newBanner preShow shadow">
@@ -154,7 +182,6 @@
     {/each}
 </ul>
 <div class="br"></div>
-<h2>Banners!</h2>
 <ul class="banners">
     {#each banners as banner}
         <li class="card banner preShow shadow">
